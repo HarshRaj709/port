@@ -23,6 +23,22 @@
     <title>Harsh Sahu | Professional Portfolio</title>
 
     <style>
+        .chatbot-pop {
+            animation: popIn 0.3s ease-out;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+
         .bot-message {
             white-space: pre-wrap;
             word-break: break-word;
@@ -212,6 +228,52 @@
           </div>
         </div>
       </div>
+
+
+      <div class="col-md-6 col-lg-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">
+            <a class="nav-link" href="/follow-alongs/fun-pump.html">
+              Rag Bot – Real-Time RAG-Powered AI Assistant
+            </a>
+          </h5>
+
+          <p>
+            <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Python</span>
+            <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Django</span>
+            <!-- <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">FastAPI</span> -->
+            <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Supabase</span>
+            <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">pgvector</span>
+            <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">RAG</span>
+            <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">LLMs</span>
+            <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">OpenAI</span>
+            <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">DeepSeek</span>
+          </p>
+
+          <ul>
+            <li><p>Built a <strong>live RAG-based AI assistant</strong> deployed on this portfolio site.</p></li>
+            <li><p>Implemented <strong>semantic search</strong> using <code>Supabase + pgvector</code>.</p></li>
+            <li><p>Generated embeddings with <code>OpenAI text-embedding-3-small</code>.</p></li>
+            <li><p>Integrated <code>deepseek-chat-v3-0324</code> for grounded responses.</p></li>
+            <li><p>Designed the pipeline: <strong>Query → Embed → Retrieve → Generate</strong>.</p></li>
+            <li><p>Delivered <strong>real-time token streaming</strong> over HTTP like ChatGPT APIs.</p></li>
+          </ul>
+        </div>
+
+        <div class="card-footer">
+          <div class="text-center">
+            <div class="card-footer">
+                <div class="text-center">
+                  <span class="text-muted">
+                    <strong>Try it live — available in the bottom-right corner 🚀</strong>
+                  </span>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div> 
             
             
       <div class="col-md-6 col-lg-4">
