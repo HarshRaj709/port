@@ -282,7 +282,7 @@
             <h3 id="added">Added</h3>
             <ul>
               <li>Working on enhancing Django and AI skills by exploring new projects and technologies.</li>
-              <li>Achieved 6k+ followers on <a href="https://www.linkedin.com/in/harsh-sahuu/" target="_blank">LinkedIn</a>,growing my professional network and sharing insights with a wider audience.!</li>
+              <li>Achieved 8k+ followers on <a href="https://www.linkedin.com/in/harsh-sahuu/" target="_blank">LinkedIn</a>,growing my professional network and sharing insights with a wider audience.!</li>
               <li>Plans to expand expertise into new technologies and domains.</li>
             </ul>
             <br><br>
@@ -360,7 +360,7 @@
 
             <div class="chatbot-messages" id="chatbotMessages">
                 <div class="message bot-message">
-                    Hi! I'm Harsh's assistant. Ask me anything about his projects, experience, or skills! 🚀
+                  Hi! I'm Harsh's assistant. Ask me anything about his projects, experience, or skills! 🚀
                 </div>
             </div>
 
@@ -376,110 +376,119 @@
     </div>
 
     <!-- Chatbot Logic -->
-    <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const toggle = document.getElementById("chatbotToggle");
-        const container = document.getElementById("chatbotContainer");
-        const closeBtn = document.getElementById("chatbotClose");
-        const messagesDiv = document.getElementById("chatbotMessages");
-        const form = document.getElementById("chatbotForm");
-        const input = document.getElementById("chatbotInput");
+    <!-- Chatbot Logic - Complete Working Version -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("chatbotToggle");
+    const container = document.getElementById("chatbotContainer");
+    const closeBtn = document.getElementById("chatbotClose");
+    const messagesDiv = document.getElementById("chatbotMessages");
+    const form = document.getElementById("chatbotForm");
+    const input = document.getElementById("chatbotInput");
 
-        // Toggle chat window
-        toggle.addEventListener("click", () => {
-            container.style.display = (container.style.display === "none" || container.style.display === "") ? "flex" : "none";
-        });
+    // Toggle chat window
+    toggle.addEventListener("click", () => {
+        container.style.display = (container.style.display === "none" || container.style.display === "") 
+            ? "flex" 
+            : "none";
+    });
 
-        closeBtn.addEventListener("click", () => {
-            container.style.display = "none";
-        });
+    closeBtn.addEventListener("click", () => {
+        container.style.display = "none";
+    });
 
-        const scrollToBottom = () => {
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        };
+    const scrollToBottom = () => {
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    };
 
-        function renderMessage(text) {
-            let html = text
-                .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
-                .replace(/`([^`]+)`/g, '<code>$1</code>')
-                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-                .replace(/\*([^*]+)\*/g, '<em>$1</em>')
-                .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, 
-                    '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
-                .replace(/(?<!href=")(https?:\/\/[^\s<]+)/g, 
-                    '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
-            return html;
-        }
+    // Very good markdown-like rendering
+    function renderMessage(text) {
+        let html = text
+            .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+            .replace(/`([^`]+)`/g, '<code>$1</code>')
+            .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+            .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, 
+                '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+            .replace(/(?<!href=")(https?:\/\/[^\s<]+)/g, 
+                '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+        return html;
+    }
 
-        const addMessage = (text, type = "bot") => {
-            const msg = document.createElement("div");
-            msg.className = `message ${type}-message`;
-            msg.innerHTML = renderMessage(text);
-            messagesDiv.appendChild(msg);
-            scrollToBottom();
-        };
+    const addMessage = (text, type = "bot") => {
+        const msg = document.createElement("div");
+        msg.className = `message ${type}-message`;
+        msg.innerHTML = type === "bot" ? renderMessage(text) : text;
+        messagesDiv.appendChild(msg);
+        scrollToBottom();
+        return msg;
+    };
 
-        const showTyping = () => {
-            const typing = document.createElement("div");
-            typing.className = "message bot-message typing";
-            typing.innerHTML = "<span></span><span></span><span></span>";
-            typing.id = "typing-indicator";
-            messagesDiv.appendChild(typing);
-            scrollToBottom();
-        };
+    const showTyping = () => {
+        const typing = document.createElement("div");
+        typing.className = "message bot-message typing";
+        typing.innerHTML = "<span></span><span></span><span></span>";
+        typing.id = "typing-indicator";
+        messagesDiv.appendChild(typing);
+        scrollToBottom();
+    };
 
-        const removeTyping = () => {
-            const typing = document.getElementById("typing-indicator");
-            if (typing) typing.remove();
-        };
+    const removeTyping = () => {
+        document.getElementById("typing-indicator")?.remove();
+    };
 
-        // ── Main chat handler with improved streaming feel ──
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
+    // ── Main streaming handler ──
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-            const userText = input.value.trim();
-            if (!userText) return;
+        const userText = input.value.trim();
+        if (!userText) return;
 
-            addMessage(userText, "user");
-            input.value = "";
+        // Show user message
+        addMessage(userText, "user");
+        input.value = "";
 
-            showTyping();
+        // Show typing indicator
+        showTyping();
 
-            try {
-                const response = await fetch("http://127.0.0.1:8000/chat/chat/", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ query: userText }),
-                });
+        try {
+            const response = await fetch("http://127.0.0.1:8000/chat/chat/", {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    // "Authorization": "Bearer your-token-if-needed" // ← add if required
+                },
+                body: JSON.stringify({ query: userText }),
+            });
 
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            if (!response.ok) {
+                throw new Error(`Server responded with ${response.status}`);
+            }
 
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder();
+            removeTyping();
 
-                removeTyping();
+            // Create message container that we will update live
+            const botMsg = document.createElement("div");
+            botMsg.className = "message bot-message";
+            messagesDiv.appendChild(botMsg);
 
-                const botMsg = document.createElement("div");
-                botMsg.className = "message bot-message";
-                messagesDiv.appendChild(botMsg);
+            let fullText = "";
 
-                let fullText = "";
-                let buffer = "";
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
 
-                // Real-time streaming
-                while (true) {
-                    const { value, done } = await reader.read();
-                    if (done) break;
+            // ── Stream processing loop ──
+            while (true) {
+                const { value, done } = await reader.read();
+                if (done) break;
 
-                    buffer += decoder.decode(value, { stream: true });
+                const chunk = decoder.decode(value, { stream: true });
+                const lines = chunk.split("\n");
 
-                    let boundary;
-                    while ((boundary = buffer.indexOf("\n\n")) !== -1) {
-                        const line = buffer.slice(0, boundary).trim();
-                        buffer = buffer.slice(boundary + 2);
+                for (const line of lines) {
+                    if (!line.trim()) continue;
 
-                        if (!line.startsWith("data:")) continue;
-
+                    if (line.startsWith("data: ")) {
                         const data = line.replace(/^data:\s*/, "").trim();
 
                         if (data === "[DONE]") continue;
@@ -489,48 +498,38 @@
                             if (parsed.token !== undefined) {
                                 fullText += parsed.token;
 
-                                // Show content as soon as we get it
+                                // ── Live update - this is the most important line ──
                                 botMsg.textContent = fullText;
                                 scrollToBottom();
                             }
                         } catch (err) {
-                            console.warn("Invalid SSE JSON:", data);
+                            console.warn("Invalid token JSON:", data);
                         }
                     }
                 }
-
-                // Final gentle typewriter finish + markdown render
-                if (fullText) {
-                    const currentText = botMsg.textContent;
-                    botMsg.textContent = currentText; // keep what we have
-
-                    let i = currentText.length;
-                    const finishTypewriter = setInterval(() => {
-                        if (i < fullText.length) {
-                            botMsg.textContent += fullText[i];
-                            scrollToBottom();
-                            i++;
-                        } else {
-                            clearInterval(finishTypewriter);
-                            // Final beautiful render
-                            botMsg.innerHTML = renderMessage(fullText);
-                            scrollToBottom();
-                        }
-                    }, 35); // ~28 chars/sec – natural typing speed
-                }
-
-            } catch (err) {
-                removeTyping();
-                addMessage(
-                    "Sorry, couldn't connect to the server right now. Please try again later.",
-                    "bot"
-                );
-                console.error("Chat error:", err);
             }
-        });
 
-        scrollToBottom();
+            // After stream is complete → apply nice formatting
+            if (fullText.trim()) {
+                botMsg.innerHTML = renderMessage(fullText);
+                scrollToBottom();
+            }
+
+        } catch (err) {
+            removeTyping();
+            addMessage(
+                "Sorry, something went wrong while connecting to the server... 😓<br>" +
+                "Please try again later.",
+                "bot"
+            );
+            console.error("Chat error:", err);
+        }
     });
-    </script>
+
+    // Initial scroll
+    scrollToBottom();
+});
+</script>
+
 </body>
 </html>
