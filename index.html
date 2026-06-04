@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="/styles/changelog.css">
     <link rel="stylesheet" type="text/css" href="/style/github.css">
-
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
 
     <title>Harsh Sahu | Professional Portfolio</title>
@@ -64,6 +64,39 @@
             background: #666;
             border-radius: 50%;
             animation: typing 1.4s infinite;
+        }
+        .chatbot-toggle {
+            animation:
+                floatBot 3s ease-in-out infinite,
+                glowBot 2s ease-in-out infinite;
+        }
+
+        @keyframes glowBot {
+            0% {
+                filter: drop-shadow(0 0 5px #00ffff);
+            }
+
+            50% {
+                filter: drop-shadow(0 0 20px #00ffff);
+            }
+
+            100% {
+                filter: drop-shadow(0 0 5px #00ffff);
+            }
+        }
+
+        @keyframes floatBot {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
         }
         .typing span:nth-child(2) { animation-delay: 0.2s; }
         .typing span:nth-child(3) { animation-delay: 0.4s; }
@@ -552,9 +585,14 @@
     <!-- Chatbot Widget -->
     <div class="chatbot-widget" id="chatbotWidget">
         <div class="chatbot-toggle" id="chatbotToggle">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
-                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
-            </svg>
+          <lottie-player
+            src="assets/chatbot.json"
+            background="transparent"
+            speed="1"
+            style="width:350px;height:350px;"
+            loop
+            autoplay>
+          </lottie-player>
         </div>
 
         <div class="chatbot-container" id="chatbotContainer" style="display:none;">
