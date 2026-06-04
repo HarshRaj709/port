@@ -58,22 +58,22 @@ a {
 }
 .chatbot-widget {
   position: fixed;
-  bottom: 20px;
+  bottom: 0px;
   right: 20px;
   z-index: 9999;
   font-family: inherit;
 }
 
 .chatbot-toggle {
-  width: 60px;
-  height: 60px;
-  background: #0d6efd;
-  border-radius: 50%;
+  width: 150px;        /* adjust to taste */
+  height: 150px;
+  background: transparent;    /* remove blue circle */
+  border-radius: 0;           /* remove circle shape */
+  box-shadow: none;           /* remove shadow */
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   transition: all 0.3s;
 }
 
