@@ -605,6 +605,16 @@
                 <div class="message bot-message">
                   Hi! I'm Harsh's assistant. Ask me anything about his projects, experience, or skills! 🚀
                 </div>
+
+                <div class="prompt-suggestions" id="promptSuggestions">
+                    <button type="button" class="prompt-btn" data-question="Tell me about yourself.">
+                        Tell me about yourself.
+                    </button>
+
+                    <button type="button" class="prompt-btn" data-question="Tell me about your projects.">
+                        Tell me about your projects.
+                    </button>
+                </div>
             </div>
 
             <form class="chatbot-input-area" id="chatbotForm">
@@ -628,9 +638,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const messagesDiv = document.getElementById("chatbotMessages");
     const form = document.getElementById("chatbotForm");
     const input = document.getElementById("chatbotInput");
+    const promptButtons = document.querySelectorAll(".prompt-btn");
 
     // 🔑 Persistent session id
     let sessionId = localStorage.getItem("chat_session_id");
+
+    promptButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            input.value = button.dataset.question;
+            form.requestSubmit();
+        });
+    });
 
     // Toggle chat window
     toggle.addEventListener("click", () => {
