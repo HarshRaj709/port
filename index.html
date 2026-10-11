@@ -716,11 +716,11 @@ document.addEventListener("DOMContentLoaded", () => {
         showTyping();
 
         try {
-            const response = await fetch("https://rag-m3z9.onrender.com/chat/chat/", {
+            const response = await fetch("http://localhost:8000/api/chat/bot/my-engineer/chat/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    // "Authorization": "Bearer your-token-if-needed" // ← add if required
+                    "Authorization": "Bearer ragbot_live_UZI9GX2rTzE7WeeRcYFS7t1Fbdqf_qkzkrKtvgkubuc" // ← add if required
                 },
                 body: JSON.stringify({
                     query: userText,
